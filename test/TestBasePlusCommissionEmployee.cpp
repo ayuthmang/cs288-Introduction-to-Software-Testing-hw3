@@ -4,15 +4,16 @@
 
 #include "TestBasePlusCommissionEmployee.h"
 #include <iostream>
-#include "../src/commission.h"
+#include "../src/baseplus.h"
 
 using namespace std;
 
-CommissionEmployee *basePlusCommissionEmployee;
+BasePlusCommissionEmployee *basePlusCommissionEmployee;
 
 string firstname = "Manee";
 string lastname = "Meena";
 string socialSecurityNumber = "333-33-3333";
+double baseSalaryAmount = 15000;
 double grossWeekSales = 0.0;
 double percent = 0.0;
 
@@ -25,10 +26,11 @@ int main() {
 
 
 void tearUp() {
-    basePlusCommissionEmployee = new CommissionEmployee(
+    basePlusCommissionEmployee = new BasePlusCommissionEmployee(
             firstname,
             lastname,
             socialSecurityNumber,
+            baseSalaryAmount,
             grossWeekSales,
             percent
     );
@@ -46,6 +48,9 @@ void runAllTest() {
 
     testSetGrossSales();
     testGetGrossSales();
+
+    testSetBaseSalary();
+    testGetBaseSalary();
 
     testEarnings();
     testPrint();
@@ -79,6 +84,21 @@ void testGetGrossSales() {
     if (basePlusCommissionEmployee->getGrossSales() == grossWeekSales)
         cout << "\t[x] getGrossSales function test passed\n";
     else cout << "\t[-] getGrossSales function test failed\n";
+}
+
+void testSetBaseSalary() {
+    try {
+        basePlusCommissionEmployee->setBaseSalary(baseSalaryAmount);
+        cout << "\t[x] setBaseSalary function test passed\n";
+    } catch (const std::exception &e) { // caught by reference to base
+        cout << "\t[-] setBaseSalary function test failed with " << e.what() << endl;
+    }
+}
+
+void testGetBaseSalary() {
+    if (basePlusCommissionEmployee->getBaseSalary() == baseSalaryAmount)
+        cout << "\t[x] getBaseSalary function test passed\n";
+    else cout << "\t[-] getBaseSalary function test failed\n";
 }
 
 void testEarnings() {

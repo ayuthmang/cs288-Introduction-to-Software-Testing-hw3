@@ -20,3 +20,6 @@ void testGetGrossSales();
 
 void testEarnings();
 void testPrint();
+
+void testSetBaseSalary();
+void testGetBaseSalary();
